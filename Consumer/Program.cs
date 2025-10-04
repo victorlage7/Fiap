@@ -37,4 +37,12 @@ var host = Host.CreateDefaultBuilder(args)
         });
     })
     .Build();
+
+// Executar migrations automaticamente
+using (var scope = host.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
 host.Run();
